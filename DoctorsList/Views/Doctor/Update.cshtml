@@ -1,0 +1,159 @@
+﻿@model DataAccessLayer.Doctor
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+<h1>Update</h1>
+
+<h4>Doctor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="DoctorID" type="hidden" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctorName" class="control-label"></label>
+                <input asp-for="DoctorName" class="form-control" />
+                <span asp-validation-for="DoctorName" id="ername" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DOB" class="control-label"></label>
+                <input asp-for="DOB" class="form-control" />
+                <span asp-validation-for="DOB" id="erdob" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PassedOutYear" class="control-label"></label>
+                <input asp-for="PassedOutYear" class="form-control" />
+                <span asp-validation-for="PassedOutYear" id="erpassyear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MobileNumber" class="control-label"></label>
+                <input asp-for="MobileNumber" class="form-control" />
+                <span asp-validation-for="MobileNumber" id="ernumber" class="text-danger"></span>
+            </div>
+            <div class="radio-btn label">
+                <label asp-for="Gender">Gender</label><br />
+                <input asp-for="Gender" type="radio" name="radio" id="male" value="Male">
+                <label asp-for="Gender" for="radio">Male</label><br />
+                <input asp-for="Gender" type="radio" name="radio" id="female" value="Female">
+                <label asp-for="Gender" for="radio">Female</label>
+                <span asp-validation-for="Gender" id="ergender" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <input type="button" id="submit"value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+       $(document).ready(function () {
+           debugger;
+           $("#submit").click(function () {
+               debugger;
+               if (validate()) {
+                   var name = document.getElementById("DoctorName").value;
+                   var dob = document.getElementById("DOB").value;
+                   var id = document.getElementById("DoctorID").value;
+                   var passyear = document.getElementById("PassedOutYear").value;
+                   var mobilenumber = document.getElementById("MobileNumber").value;
+                   var gender = document.getElementsByClassName("radio");
+                   var Gender = ""
+                   for (var a = 0, length = gender.length; a < length; a++) {
+                       if (gender[a].checked) {
+                           Gender = gender[a].value;
+                           break;
+                       }
+                   }
+                   var postdata = {
+                       "DoctorName": name,
+                       "DOB": dob,
+                       "PassedOutYear": passyear,
+                       "MobileNumber": mobilenumber,
+                       "Gender": Gender,
+                       "DoctorID": id
+                   }
+                   $.ajax({
+                       type: "Post",
+                       url: "/Doctor/Creates",
+                       data: postdata
+                   })
+               }
+           })
+           function validate() {
+               var name = document.getElementById("DoctorName").value;
+               var dob = document.getElementById("DOB").value;
+               var passyear = document.getElementById("PassedOutYear").value;
+               var mobilenumber = document.getElementById("MobileNumber").value;
+               var Erdob = document.getElementById("erdob");
+               var Ername = document.getElementById("ername");
+               var Ernumber = document.getElementById("ernumber");
+               var Erpassyear = document.getElementById("erpassyear");
+               var Ergender = document.getElementById("ergender");
+               var ischecked = true;
+               var gender = document.getElementsByName("radio");
+               var Gender = ""
+               for (var a = 0, lengths = gender.length; a < lengths; a++) {
+                   if (gender[a].checked) {
+                       Gender = gender[a].value;
+                       break;
+                   }
+
+               }
+               if (!Gender) {
+                   Ergender.innerHTML = "Select The gender";
+                   Ergender.style.display = "block";
+                   ischecked = false
+               }
+               else {
+                   Ergender.style.display = "none";
+               }
+
+               if (name == "" || name.length == 0) {
+                   Ername.innerText = "Enter the Name";
+                   Ername.style.display = "block";
+                   ischecked = false;
+               }
+               else {
+                   Ername.style.display = "none";
+               }
+               if (dob == "" || dob.length == 0) {
+                   Erdob.innerText = "Enter the DOB";
+                   Erdob.style.display = "block";
+                   ischecked = false;
+               }
+               else {
+                   Erdob.style.display = "none";
+               }
+               if (mobilenumber == "" || mobilenumber.length != 10) {
+                   Ernumber.innerText = "Enter the MobileNumber";
+                   Ernumber.style.display = "block";
+                   ischecked = false;
+               }
+               else {
+                   Ernumber.style.display = "none";
+               }
+               if (passyear == "" || passyear.length != 4) {
+                   Erpassyear.innerText = "Enter the Passedout year";
+                   Erpassyear.style.display = "block";
+                   ischecked = false;
+               }
+               else {
+                   Erpassyear.style.display = "none";
+               }
+               return ischecked;
+           }
+       });
+
+    </script>
+}

@@ -1,0 +1,99 @@
+﻿@model IEnumerable<DataAccessLayer.Doctor>
+
+@{
+    ViewData["Title"] = "List";
+}
+@section Scripts{
+    <script>
+    $(document).ready(function () {
+
+
+
+        $(".deletedoct").click(function () {
+
+            //var idEle = document.getElementsByClassName(".deletestu");
+            var id = $(this).attr("data-id");
+            var Name = $(this).attr("data-name");
+
+            debugger;
+            if (confirm("Are you sure want to delete?" + Name)) {
+                var post = {
+                    "id": id
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/Login/Deletes",
+                    data: post
+                });
+            }
+            else {
+                window.location.href = "/Login/Index";
+            }
+
+
+        })
+
+    });
+    </script>
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PassedOutYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MobileNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoctorID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoctorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DOB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PassedOutYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    <a asp-action="Create" asp-route-id="@item.DoctorID">Edit</a>|
+                    <a asp-action="Edit" asp-route-id="@item.DoctorID">Details</a>|
+                    <a href="" class="deletedoct" data-name="@item.DoctorName" data-id="@item.DoctorID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
