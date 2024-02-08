@@ -37,9 +37,9 @@
             </div>
             <div class="radio-btn label">
                 <label asp-for="Gender">Gender</label>
-                <input asp-for="Gender" type="radio" name="radio" id="male" value="Male">
+                <input asp-for="Gender" type="radio" name="radio" id="male" value="M">
                 <label asp-for="Gender" for="radio">Male</label>
-                <input asp-for="Gender" type="radio" name="radio" id="female" value="Female">
+                <input asp-for="Gender" type="radio" name="radio" id="female" value="F">
                 <label asp-for="Gender" for="radio">Female</label>
                 <span  asp-validation-for="Gender" id="ergender"class="text-danger"></span>
 
@@ -86,12 +86,16 @@
                    $.ajax({
                        type: "Post",
                        url: "/Doctor/Creates",
-                       data: postdata
+                       data: postdata,
+                       success: function (data) {
+                           window.location.href = "/Doctor/Index";
+                       }
                    })
                        
                }
            })
            function validate() {
+               debugger;
                var name = document.getElementById("DoctorName").value;
                var dob = document.getElementById("DOB").value;
                var passyear = document.getElementById("PassedOutYear").value;
@@ -128,7 +132,7 @@
                else {
                    Ername.style.display = "none";
                }
-               if (dob == "" || dob.length == 0) {
+               if (dob == "0001-01-01T00:00" || dob.length == 0 || dob=="") {
                    Erdob.innerText = "Enter the DOB";
                    Erdob.style.display = "block";
                    ischecked = false;

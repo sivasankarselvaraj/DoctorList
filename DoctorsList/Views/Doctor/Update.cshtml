@@ -37,9 +37,9 @@
             </div>
             <div class="radio-btn label">
                 <label asp-for="Gender">Gender</label><br />
-                <input asp-for="Gender" type="radio" name="radio" id="male" value="Male">
+                <input asp-for="Gender" type="radio" name="radio" id="male" value="M">
                 <label asp-for="Gender" for="radio">Male</label><br />
-                <input asp-for="Gender" type="radio" name="radio" id="female" value="Female">
+                <input asp-for="Gender" type="radio" name="radio" id="female" value="F">
                 <label asp-for="Gender" for="radio">Female</label>
                 <span asp-validation-for="Gender" id="ergender" class="text-danger"></span>
 
@@ -67,7 +67,7 @@
                    var id = document.getElementById("DoctorID").value;
                    var passyear = document.getElementById("PassedOutYear").value;
                    var mobilenumber = document.getElementById("MobileNumber").value;
-                   var gender = document.getElementsByClassName("radio");
+                   var gender = document.getElementsByName("radio");
                    var Gender = ""
                    for (var a = 0, length = gender.length; a < length; a++) {
                        if (gender[a].checked) {
@@ -86,7 +86,10 @@
                    $.ajax({
                        type: "Post",
                        url: "/Doctor/Creates",
-                       data: postdata
+                       data: postdata,
+                       success: function (data) {
+                           window.location.href = "/Doctor/Index";
+                       }
                    })
                }
            })

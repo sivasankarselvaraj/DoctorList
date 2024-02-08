@@ -12,18 +12,23 @@
         $(".deletedoct").click(function () {
 
             //var idEle = document.getElementsByClassName(".deletestu");
-            var id = $(this).attr("data-id");
+            debugger;
+            var DoctorID = $(this).attr("data-id");
             var Name = $(this).attr("data-name");
 
             debugger;
             if (confirm("Are you sure want to delete?" + Name)) {
                 var post = {
-                    "id": id
+                    "id": DoctorID
                 };
                 $.ajax({
                     type: "POST",
-                    url: "/Login/Deletes",
-                    data: post
+                    url: "/Doctor/Deletes",
+                    data: post,
+                    success: function (data) {
+                        window.location.href = "/Doctor/Index";
+                    }
+                    
                 });
             }
             else {
@@ -90,7 +95,7 @@
                 </td>
                 <td>
                     <a asp-action="Create" asp-route-id="@item.DoctorID">Edit</a>|
-                    <a asp-action="Edit" asp-route-id="@item.DoctorID">Details</a>|
+                    <a asp-action="Details" asp-route-id="@item.DoctorID">Details</a>|
                     <a href="" class="deletedoct" data-name="@item.DoctorName" data-id="@item.DoctorID">Delete</a>
                 </td>
             </tr>

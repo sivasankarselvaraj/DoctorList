@@ -22,13 +22,16 @@ namespace DoctorsList.Controllers
         // GET: DoctorController
         public ActionResult Index()
         {
-            return View("List");
+            var getall = obj.Getall();
+            return View("List", getall);
+           
         }
 
         // GET: DoctorController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
-            return View();
+            var getIDdetails = obj.GetById(id);
+            return View ("Details", getIDdetails);
         }
 
         // GET: DoctorController/Create
@@ -102,10 +105,11 @@ namespace DoctorsList.Controllers
         // POST: DoctorController/Delete/5
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Deletes(long id)
         {
             try
             {
+                obj.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

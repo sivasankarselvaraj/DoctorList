@@ -18,7 +18,7 @@ namespace DataAccessLayer
         {
             try
             {
-                connect.Database.ExecuteSqlRaw("");
+                connect.Database.ExecuteSqlRaw($"exec InsertDoctor '{details.DoctorName}','{details.DOB}',{details.PassedOutYear},{details.MobileNumber},'{details.Gender}'");
             }
             catch(Exception)
             {
@@ -29,7 +29,7 @@ namespace DataAccessLayer
         {
             try
             {
-                connect.Database.ExecuteSqlRaw("");
+                connect.Database.ExecuteSqlRaw($" exec UpadteDoctors {id}, '{replace.DoctorName}','{replace.DOB}',{replace.PassedOutYear},{replace.MobileNumber},'{replace.Gender}'"); 
             }
             catch (Exception)
             {
@@ -41,7 +41,7 @@ namespace DataAccessLayer
         {
             try
             {
-                connect.Database.ExecuteSqlRaw("");
+                connect.Database.ExecuteSqlRaw($"exec DeleteDoctor {id}");
             }
             catch (Exception)
             {
@@ -64,7 +64,7 @@ namespace DataAccessLayer
         {
             try
             {
-                var GetidDetails = connect.DoctorTableList.FromSqlRaw<Doctor>("Select * from DoctorTableList").FirstOrDefault();
+                var GetidDetails = connect.DoctorTableList.FromSqlRaw<Doctor>($"Select * from DoctorTableList where DoctorId={id}").FirstOrDefault();
                 return GetidDetails;
             }
             catch (Exception)
