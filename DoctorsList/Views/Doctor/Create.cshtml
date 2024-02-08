@@ -17,7 +17,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="DoctorName" class="control-label"></label>
-                <input asp-for="DoctorName" class="form-control" />
+                <input asp-for="DoctorName" class="form-control" placeholder="Enter the Name"/>
                 <span asp-validation-for="DoctorName" id="ername" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -27,12 +27,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="PassedOutYear" class="control-label"></label>
-                <input asp-for="PassedOutYear" class="form-control" />
+                <input asp-for="PassedOutYear" class="form-control" value="" placeholder="Enter the Passedoutyear" />
                 <span asp-validation-for="PassedOutYear" id="erpassyear" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MobileNumber" class="control-label"></label>
-                <input asp-for="MobileNumber" class="form-control" />
+                <input asp-for="MobileNumber" class="form-control" value="" placeholder="Enter the MobileNumber" />
                 <span asp-validation-for="MobileNumber" id="ernumber" class="text-danger"></span>
             </div>
             <div class="radio-btn label">
@@ -58,7 +58,7 @@
 @section Scripts {
    <script>
        $(document).ready(function () {
-           debugger;
+           
            $("#submit").click(function () {
                
                if (validate()) {
@@ -95,7 +95,7 @@
                }
            })
            function validate() {
-               debugger;
+              
                var name = document.getElementById("DoctorName").value;
                var dob = document.getElementById("DOB").value;
                var passyear = document.getElementById("PassedOutYear").value;
@@ -141,7 +141,7 @@
                    Erdob.style.display = "none";
                }
                if (mobilenumber == "" || mobilenumber.length != 10) {
-                   Ernumber.innerText = "Enter the MobileNumber";
+                   Ernumber.innerText = "Enter the 10 digits MobileNumber";
                    Ernumber.style.display = "block";
                    ischecked = false;
                }
@@ -149,7 +149,7 @@
                    Ernumber.style.display = "none";
                }
                if (passyear == "" || passyear.length != 4) {
-                   Erpassyear.innerText = "Enter the Passedout year";
+                   Erpassyear.innerText = "Enter the Passedout year 4 digits Number";
                    Erpassyear.style.display = "block";
                    ischecked = false;
                }
